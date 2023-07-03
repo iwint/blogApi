@@ -1,0 +1,5 @@
+CREATE TABLE blog(
+    id UUID NOT NULL PRIMARY KEY,
+    title VARCHAR(225) NOT NULL,
+    description VARCHAR(1500) NOT NULL
+);

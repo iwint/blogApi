@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface BlogDao {
-    int insertBlog(UUID id , Blog blog);
-    default int insertBlog(Blog blog){
+    List insertBlog(UUID id , Blog blog);
+    default List insertBlog(Blog blog){
         UUID id = UUID.randomUUID();
         return insertBlog(id , blog);
     }

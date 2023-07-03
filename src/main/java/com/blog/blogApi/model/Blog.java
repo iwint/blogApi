@@ -1,13 +1,16 @@
 package com.blog.blogApi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import org.springframework.lang.NonNull;
 
-import java.util.Date;
 import java.util.UUID;
 
 public class Blog {
     private final UUID blog_id;
+    @NotBlank(message = "Title should not be blank")
     private final String title;
+
     private final String description;
 
     public Blog(@JsonProperty("id") UUID id,

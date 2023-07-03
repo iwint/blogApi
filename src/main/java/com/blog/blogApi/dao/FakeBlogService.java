@@ -14,9 +14,9 @@ public class FakeBlogService implements BlogDao{
 
     private final List<Blog> DB = new ArrayList<>();
     @Override
-    public int insertBlog(UUID id, Blog blog) {
+    public List<Blog> insertBlog(UUID id, Blog blog) {
         DB.add(new Blog(id ,blog.getBlogTitle(),blog.getDescription()));
-        return 1;
+        return DB;
     }
 
     @Override
@@ -40,10 +40,11 @@ public class FakeBlogService implements BlogDao{
     @Override
     public int updateBlog(UUID id, Blog blog) {
         Blog prevBlog = selectBlogById(id).orElse(null);
-        if(prevBlog != null){
+        Blog editedBlog = new Blog(prevBlog.getBlog_id(),blog.getBlogTitle(), blog.getDescription());
+        if(prevBlog!=null){
         int index = DB.indexOf(prevBlog);
         DB.remove(index);
-        DB.add(index,blog);
+        DB.add(index,editedBlog);
         return 1;
         }else{
             return 0;

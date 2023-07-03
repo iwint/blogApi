@@ -15,7 +15,7 @@ import java.util.UUID;
 public class BlogService {
     private final BlogDao blogDao;
     @Autowired
-    public BlogService(@Qualifier("FakeDao") BlogDao blogDao){
+    public BlogService(@Qualifier("postgres") BlogDao blogDao){
         this.blogDao = blogDao;
     }
     public int addBlog(Blog blog){

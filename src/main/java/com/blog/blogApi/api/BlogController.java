@@ -2,7 +2,11 @@ package com.blog.blogApi.api;
 
 import com.blog.blogApi.model.Blog;
 import com.blog.blogApi.service.BlogService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +22,7 @@ public class BlogController {
         this.blogService = blogService;
     }
     @PostMapping
-    public void addBlog(@RequestBody Blog blog){
+    public void addBlog(@Valid @NotNull @RequestBody Blog blog){
         blogService.addBlog(blog);
         System.out.println("ADDED BLOG" + " " + blog);
     }
@@ -41,7 +45,7 @@ public class BlogController {
     }
 
     @PutMapping(path = "{id}")
-    public void editBlog(@PathVariable("id") UUID id , @RequestBody Blog blog){
+    public void editBlog(@PathVariable("id") UUID id ,@Valid @NotNull @RequestBody Blog blog){
         System.out.println("EDITING BLOG" +blog.getBlogTitle());
         blogService.editBlog(id,blog);
     }

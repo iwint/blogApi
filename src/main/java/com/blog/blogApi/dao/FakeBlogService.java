@@ -30,25 +30,21 @@ public class FakeBlogService implements BlogDao{
     }
 
     @Override
-    public int removeBlog(UUID id) {
+    public List<Blog> removeBlog(UUID id) {
         Blog blog = selectBlogById(id).orElse(null);
         System.out.println("BLOG NAME : " +blog.getBlogTitle());
         DB.remove(blog);
-        return 1;
+        return selectAllBlogs();
     }
 
     @Override
-    public int updateBlog(UUID id, Blog blog) {
+    public Blog updateBlog(UUID id, Blog blog) {
         Blog prevBlog = selectBlogById(id).orElse(null);
         Blog editedBlog = new Blog(prevBlog.getBlog_id(),blog.getBlogTitle(), blog.getDescription());
-        if(prevBlog!=null){
         int index = DB.indexOf(prevBlog);
         DB.remove(index);
         DB.add(index,editedBlog);
-        return 1;
-        }else{
-            return 0;
-        }
+        return editedBlog;
     }
 
 

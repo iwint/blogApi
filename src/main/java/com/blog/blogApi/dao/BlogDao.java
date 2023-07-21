@@ -14,7 +14,7 @@ public interface BlogDao {
     }
     List<Blog> selectAllBlogs();
     Optional<Blog> selectBlogById(UUID id);
-    int removeBlog(UUID id);
-    int updateBlog(UUID id,Blog blog);
+    List<Blog> removeBlog(UUID id);
+    Blog updateBlog(UUID id,Blog blog);
 
 }

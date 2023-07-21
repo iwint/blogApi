@@ -18,7 +18,7 @@ public class BlogService {
     public BlogService(@Qualifier("postgres") BlogDao blogDao){
         this.blogDao = blogDao;
     }
-    public int addBlog(Blog blog){
+    public List<Blog> addBlog(Blog blog){
         return blogDao.insertBlog(blog);
     }
 
@@ -30,11 +30,11 @@ public class BlogService {
         return blogDao.selectBlogById(id);
     }
 
-    public int deleteBlog(UUID id){
+    public List<Blog> deleteBlog(UUID id){
         return blogDao.removeBlog(id);
     }
 
-    public int editBlog(UUID id ,Blog blog){
+    public Blog editBlog(UUID id ,Blog blog){
         return blogDao.updateBlog(id,blog);
     }
 }

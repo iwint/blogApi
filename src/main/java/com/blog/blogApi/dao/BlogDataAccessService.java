@@ -17,7 +17,9 @@ public class BlogDataAccessService implements BlogDao{
    }
     @Override
     public List<Blog> insertBlog(UUID id, Blog blog) {
-        return List.of(blog) ;
+        final String sql = "INSERT INTO blog(id,title,description) VALUES(?,?,?)";
+        jdbcTemplate.update(sql,new Object[]{id,blog.getBlogTitle(),blog.getDescription()});
+        return selectAllBlogs();
     }
 
     @Override
@@ -52,12 +54,20 @@ public class BlogDataAccessService implements BlogDao{
     }
 
     @Override
-    public int removeBlog(UUID id) {
-        return 0;
+    public List<Blog> removeBlog(UUID id) {
+        System.out.println("BLOG ID : " + id);
+        final String sql = "DELETE FROM blog WHERE id = ?";
+        jdbcTemplate.update(sql,new Object[]{id});
+        return selectAllBlogs();
     }
 
     @Override
-    public int updateBlog(UUID id, Blog blog) {
-        return 0;
+    public Blog updateBlog(UUID id, Blog blog) {
+
+       final String sql = "UPDATE blog SET title = ?, description = ? WHERE id = ?";
+         jdbcTemplate.update(sql,new Object[]{blog.getBlogTitle(),blog.getDescription(),id});
+         return selectBlogById(id).orElse(null);
+
+
     }
 }
